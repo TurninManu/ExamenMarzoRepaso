@@ -25,8 +25,8 @@ export class JsonServerProvider {
   }
 
   public getCarreras(){
-    this.http.get(this.URL + "/carreras?_sort=fecha&_order=DESC").subscribe((data) => {
-      this.listener.onGetCarrerasResponse(<Carrera[]>data, null);
+    this.http.get(this.URL + "/carreras?_sort=fecha&_order=DESC").subscribe((data:Carrera[]) => {
+      this.listener.onGetCarrerasResponse(data, null);
     }),
     (error => {
       this.listener.onGetCarrerasResponse(null, "error al leer las carreras");
