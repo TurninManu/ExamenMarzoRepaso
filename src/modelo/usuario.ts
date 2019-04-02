@@ -1,5 +1,5 @@
 export class Usuario{
-    constructor(id:number, apellidos:string, nombre:string, categoria:string){
+    constructor(public id:number,public apellidos:string,public nombre:string,public categoria:string){
 
     }
 }

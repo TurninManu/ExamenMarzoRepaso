@@ -13,6 +13,8 @@ import { UserServiceProviderListener } from '../../providers/json-server/json-se
 export class HomePage implements UserServiceProviderListener{
 
   carreras:Carrera[];
+  clasificaciones:Clasificacion[];
+  usuarios:Usuario[];
 
   constructor(public navCtrl: NavController, public jsonServerProvider:JsonServerProvider, public toastController:ToastController) {
     jsonServerProvider.setListener(this);
@@ -20,8 +22,20 @@ export class HomePage implements UserServiceProviderListener{
     jsonServerProvider.getCarreras();
   }
 
-  onGetUsuarioResponse(usuario: Usuario, errorString: any) {
-    throw new Error("Method not implemented.");
+  public obtenerClasificaciones(c:Carrera){
+    this.jsonServerProvider.getClasificacionesCarrera(c);
+  }
+
+  onGetUsuarioResponse(usuario: Usuario, error:string) {
+    if(error==null){
+      this.usuarios.push(usuario);
+    }else{
+      const toast = this.toastController.create({
+        message: error,
+        duration: 2000
+      });
+      toast.present();
+    }
   }
   onGetUsuariosPorCadenaBusquedaResponse(usuarios: Usuario[], error: string) {
     throw new Error("Method not implemented.");
@@ -41,7 +55,18 @@ export class HomePage implements UserServiceProviderListener{
     }
   }
   onGetClasificacionesCarreraResponse(clasificaciones: Clasificacion[], error: string) {
-    throw new Error("Method not implemented.");
+    if(error==null){
+      this.clasificaciones=clasificaciones;
+      this.clasificaciones.forEach(element => {
+        this.jsonServerProvider.getUsuario(element.idUsuario)
+      });
+    }else{
+      const toast = this.toastController.create({
+        message: error,
+        duration: 2000
+      });
+      toast.present();
+    }
   }
   onPostCarreraResponse(carrera: Carrera, error: string) {
     throw new Error("Method not implemented.");

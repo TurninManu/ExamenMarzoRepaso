@@ -1,3 +1,3 @@
 export class Clasificacion{
-    constructor(idCarrera:number, idUsuario:number, tiempo:string){}
+    constructor(public idCarrera:number,public idUsuario:number,public tiempo:string){}
 }

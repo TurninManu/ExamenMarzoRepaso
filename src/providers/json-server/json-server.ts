@@ -33,14 +33,31 @@ export class JsonServerProvider {
     });
   }
 
+  public getClasificacionesCarrera(carrera:Carrera){
+    this.http.get(this.URL + "/clasificaciones?idCarrera="+carrera.id).subscribe((data:Clasificacion[]) => {
+      this.listener.onGetClasificacionesCarreraResponse(data, null);
+    }),
+    (error => {
+      this.listener.onGetClasificacionesCarreraResponse(null, "error al leer las clasificaciones");
+    });
+  }
+
+  public getUsuario(idUsuario:number){
+    this.http.get(this.URL + "/usuarios/"+idUsuario).subscribe((data:Usuario) => {
+      this.listener.onGetUsuarioResponse(data, null);
+    }),
+    (error => {
+      this.listener.onGetUsuarioResponse(null, "error al leer el usuario");
+    });
+  }
+
 }
 
 export interface UserServiceProviderListener {
-  onGetUsuarioResponse(usuario: Usuario, errorString);
+  onGetUsuarioResponse(usuario:Usuario, error:string);
   onGetUsuariosPorCadenaBusquedaResponse(usuarios:Usuario[], error:string);
-  onGetUsuariosResponse(usuarios: Map<number,Usuario>, error:string);
+  onGetUsuariosResponse(usuarios:Map<number,Usuario>, error:string);
   onGetCarrerasResponse(carreras:Carrera[], error:String);
-  onGetClasificacionesCarreraResponse(clasificaciones:Clasificacion[],
-  error:string);
+  onGetClasificacionesCarreraResponse(clasificaciones:Clasificacion[],error:string);
   onPostCarreraResponse(carrera:Carrera, error:string);
   }
