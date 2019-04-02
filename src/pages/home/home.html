@@ -7,8 +7,18 @@
 </ion-header>
 
 <ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <ion-scroll scrollY="true" style="width: 100%; height: 50%;">
+    <ion-list *ngFor="let c of carreras">
+      <ion-item>
+        {{c.descripcion}}
+      </ion-item>
+      <ion-item>
+        {{c.distancia}} &nbsp; &nbsp; {{c.fecha}}
+      </ion-item>
+    </ion-list>
+  </ion-scroll>
+
+  <ion-scroll scrollY="true" style="width: 100%; height: 50%;">
+
+  </ion-scroll>
 </ion-content>
