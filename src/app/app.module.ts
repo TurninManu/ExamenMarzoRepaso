@@ -1,3 +1,4 @@
+import { FormularioCarreraPage } from './../pages/formulario-carrera/formulario-carrera';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -12,7 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage,
+    FormularioCarreraPage
   ],
   imports: [
     BrowserModule,
@@ -22,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage,
+    FormularioCarreraPage
   ],
   providers: [
     StatusBar,

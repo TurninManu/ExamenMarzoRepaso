@@ -1,3 +1,4 @@
+import { FormularioCarreraPage } from './../formulario-carrera/formulario-carrera';
 import { JsonServerProvider } from './../../providers/json-server/json-server';
 import { Clasificacion } from './../../modelo/clasificacion';
 import { Carrera } from './../../modelo/carrera';
@@ -25,6 +26,10 @@ export class HomePage implements UserServiceProviderListener{
 
   public obtenerClasificaciones(c:Carrera){
     this.jsonServerProvider.getClasificacionesCarrera(c);
+  }
+
+  public abrirFormulario(){
+    this.navCtrl.push(FormularioCarreraPage);
   }
 
   onGetUsuarioResponse(usuario: Usuario, error:string) {
