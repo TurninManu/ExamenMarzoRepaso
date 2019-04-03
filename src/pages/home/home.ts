@@ -14,12 +14,13 @@ export class HomePage implements UserServiceProviderListener{
 
   carreras:Carrera[];
   clasificaciones:Clasificacion[];
-  usuarios:Usuario[];
+  usuarios:Map<number, Usuario>;
 
   constructor(public navCtrl: NavController, public jsonServerProvider:JsonServerProvider, public toastController:ToastController) {
     jsonServerProvider.setListener(this);
 
     jsonServerProvider.getCarreras();
+    jsonServerProvider.getUsuarios();
   }
 
   public obtenerClasificaciones(c:Carrera){
@@ -27,8 +28,15 @@ export class HomePage implements UserServiceProviderListener{
   }
 
   onGetUsuarioResponse(usuario: Usuario, error:string) {
+    throw new Error("Method not implemented.");
+  }
+  onGetUsuariosPorCadenaBusquedaResponse(usuarios: Usuario[], error: string) {
+    throw new Error("Method not implemented.");
+  }
+  onGetUsuariosResponse(usuarios: Map<number, Usuario>, error: string) {
     if(error==null){
-      this.usuarios.push(usuario);
+      this.usuarios=usuarios;
+      console.log("Usuarios:" + usuarios);
     }else{
       const toast = this.toastController.create({
         message: error,
@@ -37,12 +45,7 @@ export class HomePage implements UserServiceProviderListener{
       toast.present();
     }
   }
-  onGetUsuariosPorCadenaBusquedaResponse(usuarios: Usuario[], error: string) {
-    throw new Error("Method not implemented.");
-  }
-  onGetUsuariosResponse(usuarios: Map<number, Usuario>, error: string) {
-    throw new Error("Method not implemented.");
-  }
+
   onGetCarrerasResponse(carreras: Carrera[], error: string) {
     if(error==null){
       this.carreras=carreras;
@@ -57,9 +60,6 @@ export class HomePage implements UserServiceProviderListener{
   onGetClasificacionesCarreraResponse(clasificaciones: Clasificacion[], error: string) {
     if(error==null){
       this.clasificaciones=clasificaciones;
-      this.clasificaciones.forEach(element => {
-        this.jsonServerProvider.getUsuario(element.idUsuario)
-      });
     }else{
       const toast = this.toastController.create({
         message: error,

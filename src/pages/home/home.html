@@ -9,21 +9,22 @@
 <ion-content padding>
   <ion-scroll scrollY="true" style="width: 100%; height: 50%;">
     <ion-list *ngFor="let c of carreras">
-      <ion-item-group (click)="obtenerClasificaciones(c)" >
-        <ion-item>
-            {{c.descripcion}}
-        </ion-item>
-        <ion-item>
+      <ion-item text-wrap (click)="obtenerClasificaciones(c)">
+        <ion-label>
+          {{c.descripcion}}
+        </ion-label>
+        <ion-label>
           {{c.distancia}} &nbsp; &nbsp; {{c.fecha}}
-        </ion-item>
-      </ion-item-group>
+        </ion-label>
+      </ion-item>
     </ion-list>
   </ion-scroll>
 
   <ion-scroll scrollY="true" style="width: 100%; height: 50%;">
-    <ion-list *ngFor="let clasificancion of clasificaciones;">
-      <ion-item>
-        {{clasificancion.tiempo}}
+    <ion-list *ngFor="let clasificancion of clasificaciones;index as i">
+      <ion-item text-wrap style="font-size: 10px">
+        {{i+1}}. {{usuarios.get(clasificancion.idUsuario).apellidos}} {{usuarios.get(clasificancion.idUsuario).nombre}}
+        {{clasificancion.tiempo}} {{usuarios.get(clasificancion.idUsuario).categoria}}
       </ion-item>
     </ion-list>
   </ion-scroll>

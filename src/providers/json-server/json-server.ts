@@ -34,7 +34,7 @@ export class JsonServerProvider {
   }
 
   public getClasificacionesCarrera(carrera:Carrera){
-    this.http.get(this.URL + "/clasificaciones?idCarrera="+carrera.id).subscribe((data:Clasificacion[]) => {
+    this.http.get(this.URL + "/clasificaciones?idCarrera="+carrera.id+"&_sort=tiempo&_order=ASC").subscribe((data:Clasificacion[]) => {
       this.listener.onGetClasificacionesCarreraResponse(data, null);
     }),
     (error => {
@@ -42,12 +42,17 @@ export class JsonServerProvider {
     });
   }
 
-  public getUsuario(idUsuario:number){
-    this.http.get(this.URL + "/usuarios/"+idUsuario).subscribe((data:Usuario) => {
-      this.listener.onGetUsuarioResponse(data, null);
+  public getUsuarios(){
+    let usr= new Map<number, Usuario>();
+
+    this.http.get(this.URL + "/usuarios").subscribe((data:Usuario[]) => {
+      data.forEach(e => {
+        usr.set(e.id, e);
+      });
+      this.listener.onGetUsuariosResponse(usr, null);
     }),
     (error => {
-      this.listener.onGetUsuarioResponse(null, "error al leer el usuario");
+      this.listener.onGetUsuariosResponse(null, "error al leer los usuarios");
     });
   }
 
