@@ -75,6 +75,15 @@ export class JsonServerProvider {
 
   }
 
+  public getUsuariosPorCadenaBusqueda(cadena:string){
+    this.http.get(this.URL + "/usuarios?apellidos_gte="+cadena+"&apellidos_lte="+cadena+"z").subscribe((data:Usuario[]) => {
+      this.listener.onGetUsuariosPorCadenaBusquedaResponse(data, null);
+    }),
+    (error => {
+      this.listener.onGetUsuariosPorCadenaBusquedaResponse(null, "error al leer los usuarios por la cadena de busqueda");
+    });
+  }
+
 }
 
 export interface UserServiceProviderListener {

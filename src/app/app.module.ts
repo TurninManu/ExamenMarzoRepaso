@@ -1,3 +1,4 @@
+import { InicioPage } from './../pages/inicio/inicio';
 import { FormularioCarreraPage } from './../pages/formulario-carrera/formulario-carrera';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -14,7 +15,8 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     MyApp,
     HomePage,
-    FormularioCarreraPage
+    FormularioCarreraPage,
+    InicioPage
   ],
   imports: [
     BrowserModule,
@@ -25,7 +27,8 @@ import { HttpClientModule } from '@angular/common/http';
   entryComponents: [
     MyApp,
     HomePage,
-    FormularioCarreraPage
+    FormularioCarreraPage,
+    InicioPage
   ],
   providers: [
     StatusBar,

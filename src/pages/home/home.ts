@@ -4,7 +4,7 @@ import { Clasificacion } from './../../modelo/clasificacion';
 import { Carrera } from './../../modelo/carrera';
 import { Usuario } from './../../modelo/usuario';
 import { Component } from '@angular/core';
-import { NavController, ToastController } from 'ionic-angular';
+import { NavController, ToastController, NavParams } from 'ionic-angular';
 import { UserServiceProviderListener } from '../../providers/json-server/json-server';
 
 @Component({
@@ -17,11 +17,14 @@ export class HomePage implements UserServiceProviderListener{
   clasificaciones:Clasificacion[];
   usuarios:Map<number, Usuario>;
 
-  constructor(public navCtrl: NavController, public jsonServerProvider:JsonServerProvider, public toastController:ToastController) {
-    jsonServerProvider.setListener(this);
+  usuario:Usuario;
 
+  constructor(public navCtrl: NavController, public navParams: NavParams, public jsonServerProvider:JsonServerProvider, public toastController:ToastController) {
+    jsonServerProvider.setListener(this);
     jsonServerProvider.getCarreras();
     jsonServerProvider.getUsuarios();
+
+    this.usuario=navParams.get("usuario");
   }
 
   public obtenerClasificaciones(c:Carrera){
@@ -74,21 +77,7 @@ export class HomePage implements UserServiceProviderListener{
     }
   }
   onPostCarreraResponse(carrera: Carrera, error: string) {
-    if(error==null){
-      const toast = this.toastController.create({
-        message: "Carrera añadida correctamente",
-        duration: 3000
-      });
-      toast.present();
-      this.navCtrl.push(HomePage);
-      this.carreras.push(carrera);
-    }else{
-      const toast = this.toastController.create({
-        message: error,
-        duration: 2000
-      });
-      toast.present();
-    }
+    throw new Error("Method not implemented.");
   }
 
 }

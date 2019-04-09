@@ -1,3 +1,4 @@
+import { HomePage } from './../home/home';
 import { JsonServerProvider } from './../../providers/json-server/json-server';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
@@ -25,6 +26,8 @@ export class FormularioCarreraPage implements UserServiceProviderListener{
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public jsonServerProvider:JsonServerProvider, public toastController:ToastController) {
+    this.jsonServerProvider.setListener(this);
+
     this.formu=new FormGroup({
       fecha:new FormControl('', Validators.compose([
         Validators.required,
@@ -78,7 +81,20 @@ export class FormularioCarreraPage implements UserServiceProviderListener{
     throw new Error("Method not implemented.");
   }
   onPostCarreraResponse(carrera: Carrera, error: string) {
-    throw new Error("Method not implemented.");
+    if(error==null){
+      const toast = this.toastController.create({
+        message: "Carrera añadida correctamente",
+        duration: 3000
+      });
+      toast.present();
+      this.navCtrl.pop();
+    }else{
+      const toast = this.toastController.create({
+        message: error,
+        duration: 2000
+      });
+      toast.present();
+    }
   }
 
 }
