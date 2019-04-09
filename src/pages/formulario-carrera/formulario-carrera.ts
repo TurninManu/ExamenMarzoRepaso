@@ -1,12 +1,8 @@
-import { HomePage } from './../home/home';
 import { JsonServerProvider } from './../../providers/json-server/json-server';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { UserServiceProviderListener } from '../../providers/json-server/json-server';
-import { Usuario } from '../../modelo/usuario';
 import { Carrera } from '../../modelo/carrera';
-import { Clasificacion } from '../../modelo/clasificacion';
 
 /**
  * Generated class for the FormularioCarreraPage page.
@@ -20,14 +16,12 @@ import { Clasificacion } from '../../modelo/clasificacion';
   selector: 'page-formulario-carrera',
   templateUrl: 'formulario-carrera.html',
 })
-export class FormularioCarreraPage implements UserServiceProviderListener{
+export class FormularioCarreraPage{
 
   formu:FormGroup;
 
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public jsonServerProvider:JsonServerProvider, public toastController:ToastController) {
-    this.jsonServerProvider.setListener(this);
-
     this.formu=new FormGroup({
       fecha:new FormControl('', Validators.compose([
         Validators.required,
@@ -63,38 +57,6 @@ export class FormularioCarreraPage implements UserServiceProviderListener{
       this.formu.get('longitud').value, 
       this.formu.get('descripcion').value, 
       this.formu.get('distancia').value));
-  }
-
-  onGetUsuarioResponse(usuario: Usuario, error:string) {
-    throw new Error("Method not implemented.");
-  }
-  onGetUsuariosPorCadenaBusquedaResponse(usuarios: Usuario[], error: string) {
-    throw new Error("Method not implemented.");
-  }
-  onGetUsuariosResponse(usuarios: Map<number, Usuario>, error: string) {
-    throw new Error("Method not implemented.");
-  }
-  onGetCarrerasResponse(carreras: Carrera[], error: string) {
-    throw new Error("Method not implemented.");
-  }
-  onGetClasificacionesCarreraResponse(clasificaciones: Clasificacion[], error: string) {
-    throw new Error("Method not implemented.");
-  }
-  onPostCarreraResponse(carrera: Carrera, error: string) {
-    if(error==null){
-      const toast = this.toastController.create({
-        message: "Carrera añadida correctamente",
-        duration: 3000
-      });
-      toast.present();
-      this.navCtrl.pop();
-    }else{
-      const toast = this.toastController.create({
-        message: error,
-        duration: 2000
-      });
-      toast.present();
-    }
   }
 
 }

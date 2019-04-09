@@ -18,21 +18,29 @@ export class HomePage implements UserServiceProviderListener{
   usuarios:Map<number, Usuario>;
 
   usuario:Usuario;
+  activarEstrella:Boolean;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public jsonServerProvider:JsonServerProvider, public toastController:ToastController) {
     jsonServerProvider.setListener(this);
     jsonServerProvider.getCarreras();
     jsonServerProvider.getUsuarios();
+    this.activarEstrella=false;
+
 
     this.usuario=navParams.get("usuario");
   }
 
   public obtenerClasificaciones(c:Carrera){
+    this.activarEstrella=true;
     this.jsonServerProvider.getClasificacionesCarrera(c);
   }
 
   public abrirFormulario(){
     this.navCtrl.push(FormularioCarreraPage);
+  }
+
+  public obtenerClasificacion(){
+    this.
   }
 
   onGetUsuarioResponse(usuario: Usuario, error:string) {
@@ -77,7 +85,22 @@ export class HomePage implements UserServiceProviderListener{
     }
   }
   onPostCarreraResponse(carrera: Carrera, error: string) {
-    throw new Error("Method not implemented.");
+    if(error==null){
+      const toast = this.toastController.create({
+        message: "Carrera añadida correctamente",
+        duration: 3000
+      });
+      toast.present();
+      this.navCtrl.pop();
+      this.jsonServerProvider.getCarreras();
+
+    }else{
+      const toast = this.toastController.create({
+        message: error,
+        duration: 2000
+      });
+      toast.present();
+    }
   }
 
 }
