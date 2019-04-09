@@ -4,7 +4,7 @@ import { Clasificacion } from './../../modelo/clasificacion';
 import { Carrera } from './../../modelo/carrera';
 import { Usuario } from './../../modelo/usuario';
 import { Component } from '@angular/core';
-import { NavController, ToastController, NavParams } from 'ionic-angular';
+import { NavController, ToastController, NavParams, AlertController } from 'ionic-angular';
 import { UserServiceProviderListener } from '../../providers/json-server/json-server';
 
 @Component({
@@ -19,8 +19,9 @@ export class HomePage implements UserServiceProviderListener{
 
   usuario:Usuario;
   activarEstrella:Boolean;
+  carreraSelec:Carrera;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public jsonServerProvider:JsonServerProvider, public toastController:ToastController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public jsonServerProvider:JsonServerProvider, public toastController:ToastController, public alertController: AlertController) {
     jsonServerProvider.setListener(this);
     jsonServerProvider.getCarreras();
     jsonServerProvider.getUsuarios();
@@ -32,6 +33,7 @@ export class HomePage implements UserServiceProviderListener{
 
   public obtenerClasificaciones(c:Carrera){
     this.activarEstrella=true;
+    this.carreraSelec=c;
     this.jsonServerProvider.getClasificacionesCarrera(c);
   }
 
@@ -39,8 +41,14 @@ export class HomePage implements UserServiceProviderListener{
     this.navCtrl.push(FormularioCarreraPage);
   }
 
-  public obtenerClasificacion(){
-    this.
+  public obtenerClasificacion(index:number){
+    const alert = this.alertController.create({
+      title: 'Clasificación',
+      message: this.carreraSelec.descripcion,
+      buttons: ['Ok']
+    });
+
+    alert.present();
   }
 
   onGetUsuarioResponse(usuario: Usuario, error:string) {
