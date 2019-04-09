@@ -34,7 +34,7 @@
           <ion-input formControlName="distancia" type="number" ></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button block type="submit" [disabled]="!formu.valid">Añadir</button>
+    <button ion-button block type="submit" (click)="addCarrera()"  [disabled]="!formu.valid">Añadir</button>
   </form>
 
 </ion-content>

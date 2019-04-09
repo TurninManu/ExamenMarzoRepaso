@@ -74,7 +74,20 @@ export class HomePage implements UserServiceProviderListener{
     }
   }
   onPostCarreraResponse(carrera: Carrera, error: string) {
-    throw new Error("Method not implemented.");
+    if(error==null){
+      const toast = this.toastController.create({
+        message: "Carrera añadida correctamente",
+        duration: 3000
+      });
+      toast.present();
+      this.carreras.push(carrera);
+    }else{
+      const toast = this.toastController.create({
+        message: error,
+        duration: 2000
+      });
+      toast.present();
+    }
   }
 
 }

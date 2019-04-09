@@ -1,8 +1,8 @@
+import { Carrera } from './../../modelo/carrera';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Usuario } from '../../modelo/usuario';
 import { Clasificacion } from '../../modelo/clasificacion';
-import { Carrera } from '../../modelo/carrera';
 
 /*
   Generated class for the JsonServerProvider provider.
@@ -54,6 +54,25 @@ export class JsonServerProvider {
     (error => {
       this.listener.onGetUsuariosResponse(null, "error al leer los usuarios");
     });
+  }
+
+  public postCarrera(carrera:Carrera){
+    let datos=JSON.stringify(carrera);
+    let header={"headers":{"Content-Type":"application/json"}};
+    return new Promise(resolve =>{
+      this.http.post(this.URL +"/carreras",datos,header)
+      .subscribe(
+        data=>{
+          resolve(data['_body']);
+          this.listener.onPostCarreraResponse(carrera, null);
+        },_error=>{
+          this.listener.onPostCarreraResponse(null, "Error al añadir la carrera");
+        }
+      );
+    }).catch(err=>{
+      console.log("Error postCarrera() en json-server de providers");
+    })
+
   }
 
 }
