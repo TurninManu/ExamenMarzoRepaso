@@ -54,7 +54,7 @@ export class FormularioCarreraPage implements UserServiceProviderListener{
   }
 
   public addCarrera(){
-    this.jsonServerProvider.postCarrera(new Carrera(-1,
+    this.jsonServerProvider.postCarrera(new Carrera(null,
       this.formu.get('fecha').value, 
       this.formu.get('latitud').value, 
       this.formu.get('longitud').value, 

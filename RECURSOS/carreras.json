@@ -763,12 +763,20 @@
       "distancia": 5502
     },
     {
-      "id": -1,
-      "fecha": "2019-04-13",
-      "latitud": "54.9823",
-      "longitud": "-32.8827",
-      "descripcion": "Nueva carrera",
-      "distancia": "32"
+      "id": 21,
+      "fecha": "2019-04-12",
+      "latitud": "34.2323",
+      "longitud": "23.434",
+      "descripcion": "asd",
+      "distancia": "3223"
+    },
+    {
+      "id": 22,
+      "fecha": "2019-04-19",
+      "latitud": "42.222",
+      "longitud": "-12.333",
+      "descripcion": "Madrid",
+      "distancia": "23454"
     }
   ],
   "clasificaciones": [

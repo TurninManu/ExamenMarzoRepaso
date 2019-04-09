@@ -80,6 +80,7 @@ export class HomePage implements UserServiceProviderListener{
         duration: 3000
       });
       toast.present();
+      this.navCtrl.push(HomePage);
       this.carreras.push(carrera);
     }else{
       const toast = this.toastController.create({
