@@ -4,15 +4,14 @@ import { Clasificacion } from './../../modelo/clasificacion';
 import { Carrera } from './../../modelo/carrera';
 import { Usuario } from './../../modelo/usuario';
 import { Component } from '@angular/core';
-import { NavController, ToastController, NavParams, AlertController } from 'ionic-angular';
+import { NavController, ToastController, NavParams, AlertController} from 'ionic-angular';
 import { UserServiceProviderListener } from '../../providers/json-server/json-server';
 
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
-export class HomePage implements UserServiceProviderListener{
-
+export class HomePage implements UserServiceProviderListener{  
   carreras:Carrera[];
   clasificaciones:Clasificacion[];
   usuarios:Map<number, Usuario>;
@@ -41,10 +40,21 @@ export class HomePage implements UserServiceProviderListener{
     this.navCtrl.push(FormularioCarreraPage);
   }
 
-  public obtenerClasificacion(index:number){
+  public obtenerClasificacion(){    
+    let clasificacion:Clasificacion;
+    let posicion:number;
+    let salir:Boolean=false;
+    for(let i=0;i<this.clasificaciones.length && !salir;i++){
+      if(this.clasificaciones[i].idUsuario==this.usuario.id){
+        posicion=i;
+        clasificacion=this.clasificaciones[i];
+        salir=true;
+      }
+    }
+
     const alert = this.alertController.create({
       title: 'Clasificación',
-      message: this.carreraSelec.descripcion,
+      message: this.carreraSelec.descripcion + " "+ clasificacion.tiempo +" "+ posicion+1,
       buttons: ['Ok']
     });
 
